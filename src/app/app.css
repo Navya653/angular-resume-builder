@@ -1,0 +1,12 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 20px;
+}
+
+.left, .right {
+  background: #f7f7f7;
+  padding: 16px;
+  border-radius: 10px;
+}

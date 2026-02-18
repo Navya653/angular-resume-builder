@@ -1,0 +1,132 @@
+<h2>Resume Builder</h2>
+
+<form [formGroup]="form">
+
+<div
+  cdkDropList
+  [cdkDropListData]="sections"
+  (cdkDropListDropped)="dropSections($event)"
+  class="card-list"
+>
+
+  <div class="card" *ngFor="let section of sections" cdkDrag>
+
+    <ng-container [ngSwitch]="section">
+
+      <!-- PERSONAL -->
+
+      <ng-container *ngSwitchCase="'personal'">
+        <h3 (click)="toggle('personal')">Personal</h3>
+        <div *ngIf="expanded.personal" formGroupName="personal">
+          <input formControlName="name" placeholder="Name">
+          <input formControlName="title" placeholder="Title">
+          <input formControlName="email">
+          <input formControlName="phone">
+        </div>
+      </ng-container>
+
+      <!-- EXPERIENCE -->
+
+      <ng-container *ngSwitchCase="'experience'">
+        <h3 (click)="toggle('experience')">Experience</h3>
+        <div *ngIf="expanded.experience" formArrayName="experience">
+          <button type="button" (click)="addExperience()">Add</button>
+          <div *ngFor="let e of experience.controls; let i=index"
+               [formGroupName]="i" class="inner">
+            <input formControlName="role">
+            <input formControlName="company">
+            <input formControlName="years">
+            <button type="button" (click)="remove(experience,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- EDUCATION -->
+
+      <ng-container *ngSwitchCase="'education'">
+        <h3 (click)="toggle('education')">Education</h3>
+        <div *ngIf="expanded.education" formArrayName="education">
+          <button type="button" (click)="addEducation()">Add</button>
+          <div *ngFor="let e of education.controls; let i=index"
+               [formGroupName]="i" class="inner">
+            <input formControlName="degree">
+            <input formControlName="school">
+            <input formControlName="year">
+            <button type="button" (click)="remove(education,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- SKILLS -->
+
+      <ng-container *ngSwitchCase="'skills'">
+        <h3 (click)="toggle('skills')">Skills</h3>
+        <div *ngIf="expanded.skills" formArrayName="skills">
+          <button type="button" (click)="addSkill()">Add</button>
+          <div *ngFor="let s of skills.controls; let i=index"
+               [formGroupName]="i" class="inner">
+            <input formControlName="name">
+            <input type="range" min="1" max="5" formControlName="level">
+            <button type="button" (click)="remove(skills,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- CERTIFICATIONS -->
+
+      <ng-container *ngSwitchCase="'certifications'">
+        <h3 (click)="toggle('certifications')">Certifications</h3>
+        <div *ngIf="expanded.certifications" formArrayName="certifications">
+          <button type="button" (click)="addCertification()">Add</button>
+          <div *ngFor="let c of certifications.controls; let i=index"
+               [formGroupName]="i" class="inner">
+            <input formControlName="name">
+            <input formControlName="org">
+            <input formControlName="year">
+            <button type="button" (click)="remove(certifications,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- PROJECTS -->
+
+      <ng-container *ngSwitchCase="'projects'">
+        <h3 (click)="toggle('projects')">Projects</h3>
+        <div *ngIf="expanded.projects" formArrayName="projects">
+          <button type="button" (click)="addProject()">Add</button>
+          <div *ngFor="let p of projects.controls; let i=index"
+               [formGroupName]="i" class="inner">
+            <input formControlName="name">
+            <input formControlName="tech">
+            <textarea formControlName="desc"></textarea>
+            <button type="button" (click)="remove(projects,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- HOBBIES -->
+
+      <ng-container *ngSwitchCase="'hobbies'">
+        <h3 (click)="toggle('hobbies')">Hobbies</h3>
+        <div *ngIf="expanded.hobbies" formArrayName="hobbies">
+          <button type="button" (click)="addHobby()">Add</button>
+          <div *ngFor="let h of hobbies.controls; let i=index" class="inner">
+            <input [formControlName]="i">
+            <button type="button" (click)="remove(hobbies,i)">X</button>
+          </div>
+        </div>
+      </ng-container>
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+</form>
+
+<style>
+.card-list { display:flex; flex-direction:column; gap:12px; }
+.card{border:1px solid #ddd;padding:12px;border-radius:8px;background:white;cursor:move}
+.inner{border:1px solid #eee;padding:8px;margin:8px 0}
+</style>

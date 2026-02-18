@@ -1,0 +1,173 @@
+/* ================= WRAPPER ================= */
+
+.preview-wrapper {
+  padding: 20px;
+}
+
+/* ================= TOOLBAR ================= */
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.toolbar button,
+.toolbar select {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* ================= RESUME ================= */
+
+.resume {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  padding: 18mm;
+  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+  border-bottom: 3px solid #2c3e50;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.title {
+  font-size: 15px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.contact {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* ================= GRID ================= */
+
+.body {
+  display: grid;
+  grid-template-columns: 65mm 1fr;
+  gap: 18px;
+}
+
+.left {
+  border-right: 1px solid #eee;
+  padding-right: 12px;
+}
+
+/* ================= SECTIONS ================= */
+
+.section {
+  margin-bottom: 14px;
+  page-break-inside: avoid;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+/* ================= ITEMS ================= */
+
+.item {
+  margin-bottom: 10px;
+  page-break-inside: avoid;
+}
+
+.item-sub {
+  font-size: 11px;
+  color: #777;
+}
+
+/* ================= SKILL BARS ================= */
+
+.skill-row {
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.bar {
+  height: 6px;
+  background: #e5e5e5;
+  border-radius: 3px;
+}
+
+.fill {
+  height: 100%;
+  background: #2c3e50;
+}
+
+/* ================= TEMPLATE MODES ================= */
+
+.resume.modern {
+  border-top: 5px solid #2c3e50;
+}
+
+.resume.classic {
+  font-family: "Times New Roman", serif;
+  border: 1px solid #333;
+  box-shadow: none;
+}
+
+.resume.classic .header {
+  border-bottom: 1px solid #333;
+}
+
+.resume.compact {
+  font-size: 12px;
+  padding: 12mm;
+}
+
+.resume.compact .section {
+  margin-bottom: 8px;
+}
+
+/* ================= PAGE BREAK HELPERS ================= */
+
+.page-break {
+  page-break-before: always;
+}
+
+/* ================= PRINT ================= */
+
+@media print {
+
+  body {
+    background: white;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .preview-wrapper {
+    padding: 0;
+  }
+
+  .resume {
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+    min-height: auto;
+  }
+
+}

@@ -1,7 +1,6 @@
 <div class="preview-wrapper">
 
-  <!-- ================= TOOLBAR ================= -->
-
+  <!-- TOOLBAR -->
   <div class="toolbar">
     <button (click)="download()">Download PDF</button>
 
@@ -12,15 +11,13 @@
     </select>
   </div>
 
-  <!-- ================= RESUME ================= -->
-
+  <!-- RESUME -->
   <div id="resume"
        class="resume"
        [ngClass]="template"
        *ngIf="resume$ | async as r">
 
-    <!-- ================= HEADER ================= -->
-
+    <!-- HEADER -->
     <div class="header">
       <div class="name">{{ r.personal?.name }}</div>
       <div class="title">{{ r.personal?.title }}</div>
@@ -29,45 +26,13 @@
       </div>
     </div>
 
-    <div class="body">
+    <!-- BODY -->
+    <div class="body two-column">
 
       <!-- ================= LEFT COLUMN ================= -->
+      <!-- Experience, Education, Projects -->
 
       <div class="left">
-
-        <!-- SKILLS -->
-        <div class="section" *ngIf="r.skills?.length">
-          <div class="section-title">Skills</div>
-
-          <div class="skill-row" *ngFor="let s of r.skills">
-            <div class="skill-name">{{ s.name }}</div>
-            <div class="bar">
-              <div class="fill" [style.width.%]="s.level * 20"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- HOBBIES -->
-        <div class="section" *ngIf="r.hobbies?.length">
-          <div class="section-title">Hobbies</div>
-          <div *ngFor="let h of r.hobbies">
-            {{ h }}
-          </div>
-        </div>
-
-        <!-- CERTIFICATIONS -->
-        <div class="section" *ngIf="r.certifications?.length">
-          <div class="section-title">Certifications</div>
-          <div *ngFor="let c of r.certifications">
-            {{ c.name }} — {{ c.org }} ({{ c.year }})
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= RIGHT COLUMN ================= -->
-
-      <div class="right">
 
         <!-- EXPERIENCE -->
         <div class="section" *ngIf="r.experience?.length">
@@ -78,6 +43,19 @@
             <div>{{ e.company }}</div>
             <div class="item-sub">
               {{ e.fromDate }} - {{ e.toDate || 'Present' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section" *ngIf="r.education?.length">
+          <div class="section-title">Education</div>
+
+          <div class="item" *ngFor="let ed of r.education">
+            <strong>{{ ed.degree }}</strong>
+            <div>{{ ed.school }}</div>
+            <div class="item-sub">
+              {{ ed.fromDate }} - {{ ed.toDate }}
             </div>
           </div>
         </div>
@@ -96,16 +74,40 @@
           </div>
         </div>
 
-        <!-- EDUCATION -->
-        <div class="section" *ngIf="r.education?.length">
-          <div class="section-title">Education</div>
+      </div>
 
-          <div class="item" *ngFor="let ed of r.education">
-            <strong>{{ ed.degree }}</strong>
-            <div>{{ ed.school }}</div>
-            <div class="item-sub">
-              {{ ed.fromDate }} - {{ ed.toDate }}
+      <!-- ================= RIGHT COLUMN ================= -->
+      <!-- Skills, Certifications, Hobbies -->
+
+      <div class="right">
+
+        <!-- SKILLS -->
+        <div class="section" *ngIf="r.skills?.length">
+          <div class="section-title">Skills</div>
+
+          <div class="skill-row" *ngFor="let s of r.skills">
+            <div class="skill-name">{{ s.name }}</div>
+            <div class="bar">
+              <div class="fill" [style.width.%]="s.level * 20"></div>
             </div>
+          </div>
+        </div>
+
+        <!-- CERTIFICATIONS -->
+        <div class="section" *ngIf="r.certifications?.length">
+          <div class="section-title">Certifications</div>
+
+          <div *ngFor="let c of r.certifications">
+            {{ c.name }} — {{ c.org }} ({{ c.year }})
+          </div>
+        </div>
+
+        <!-- HOBBIES -->
+        <div class="section" *ngIf="r.hobbies?.length">
+          <div class="section-title">Hobbies</div>
+
+          <div *ngFor="let h of r.hobbies">
+            {{ h }}
           </div>
         </div>
 

@@ -2,6 +2,7 @@
 
 .preview-wrapper {
   padding: 20px;
+  background: #f4f6f8;
 }
 
 /* ================= TOOLBAR ================= */
@@ -9,13 +10,16 @@
 .toolbar {
   display: flex;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .toolbar button,
 .toolbar select {
   padding: 6px 12px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 4px;
 }
 
 /* ================= RESUME ================= */
@@ -27,6 +31,7 @@
   padding: 18mm;
   box-shadow: 0 4px 18px rgba(0,0,0,.08);
   font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
 }
 
 /* ================= HEADER ================= */
@@ -34,12 +39,13 @@
 .header {
   border-bottom: 3px solid #2c3e50;
   padding-bottom: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .name {
   font-size: 26px;
   font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .title {
@@ -54,23 +60,38 @@
   color: #666;
 }
 
-/* ================= GRID ================= */
+/* ================= GRID (LEFT BIG, RIGHT SMALL) ================= */
 
 .body {
   display: grid;
-  grid-template-columns: 65mm 1fr;
-  gap: 18px;
+  grid-template-columns: 65% 35%;
+  gap: 30px;
+  position: relative;
+}
+
+/* Vertical divider */
+.body::before {
+  content: "";
+  position: absolute;
+  left: 65%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #e2e2e2;
 }
 
 .left {
-  border-right: 1px solid #eee;
-  padding-right: 12px;
+  padding-right: 20px;
+}
+
+.right {
+  padding-left: 20px;
 }
 
 /* ================= SECTIONS ================= */
 
 .section {
-  margin-bottom: 14px;
+  margin-bottom: 22px;
   page-break-inside: avoid;
 }
 
@@ -78,50 +99,60 @@
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: #2c3e50;
+  letter-spacing: .5px;
 }
 
 /* ================= ITEMS ================= */
 
 .item {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   page-break-inside: avoid;
+}
+
+.item strong {
+  font-size: 14px;
 }
 
 .item-sub {
   font-size: 11px;
   color: #777;
+  margin-top: 2px;
 }
 
 /* ================= SKILL BARS ================= */
 
 .skill-row {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .skill-name {
   font-size: 12px;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .bar {
   height: 6px;
   background: #e5e5e5;
   border-radius: 3px;
+  overflow: hidden;
 }
 
 .fill {
   height: 100%;
   background: #2c3e50;
+  transition: width .3s ease;
 }
 
 /* ================= TEMPLATE MODES ================= */
 
+/* Modern */
 .resume.modern {
   border-top: 5px solid #2c3e50;
 }
 
+/* Classic */
 .resume.classic {
   font-family: "Times New Roman", serif;
   border: 1px solid #333;
@@ -132,12 +163,17 @@
   border-bottom: 1px solid #333;
 }
 
+/* Compact */
 .resume.compact {
   font-size: 12px;
   padding: 12mm;
 }
 
 .resume.compact .section {
+  margin-bottom: 12px;
+}
+
+.resume.compact .item {
   margin-bottom: 8px;
 }
 

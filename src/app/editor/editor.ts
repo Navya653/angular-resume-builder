@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule, UpperCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 import {
   DragDropModule,
@@ -20,7 +20,7 @@ type SectionKey =
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DragDropModule, UpperCasePipe],
+  imports: [CommonModule, ReactiveFormsModule, DragDropModule],
   templateUrl: './editor.html'
 })
 export class EditorComponent {
@@ -28,7 +28,7 @@ export class EditorComponent {
   private fb = inject(FormBuilder);
   private state = inject(ResumeStateService);
 
-  /* ✅ this drives drag order */
+  /* 🔹 Controls drag order */
   sections: SectionKey[] = [
     'personal',
     'experience',
@@ -39,6 +39,7 @@ export class EditorComponent {
     'hobbies'
   ];
 
+  /* 🔹 Expand/Collapse state */
   expanded: Record<SectionKey, boolean> = {
     personal: true,
     experience: true,
@@ -49,6 +50,7 @@ export class EditorComponent {
     hobbies: true
   };
 
+  /* 🔹 Main Form */
   form = this.fb.group({
     personal: this.fb.group({
       name: [''],
@@ -68,6 +70,7 @@ export class EditorComponent {
   });
 
   constructor() {
+    /* 🔹 Sync form to preview */
     this.form.valueChanges.subscribe(v => {
       this.state.update({
         ...(v as any),
@@ -76,7 +79,7 @@ export class EditorComponent {
     });
   }
 
-  /* ✅ drag handler — REQUIRED */
+  /* 🔹 Drag reorder */
   dropSections(e: CdkDragDrop<SectionKey[]>) {
     moveItemInArray(this.sections, e.previousIndex, e.currentIndex);
   }
@@ -85,25 +88,77 @@ export class EditorComponent {
     this.expanded[k] = !this.expanded[k];
   }
 
-  /* ===== getters ===== */
+  /* ===== Getters ===== */
 
-  get experience(){ return this.form.get('experience') as FormArray; }
-  get education(){ return this.form.get('education') as FormArray; }
-  get skills(){ return this.form.get('skills') as FormArray; }
-  get certifications(){ return this.form.get('certifications') as FormArray; }
-  get projects(){ return this.form.get('projects') as FormArray; }
-  get hobbies(){ return this.form.get('hobbies') as FormArray; }
+  get experience() { return this.form.get('experience') as FormArray; }
+  get education() { return this.form.get('education') as FormArray; }
+  get skills() { return this.form.get('skills') as FormArray; }
+  get certifications() { return this.form.get('certifications') as FormArray; }
+  get projects() { return this.form.get('projects') as FormArray; }
+  get hobbies() { return this.form.get('hobbies') as FormArray; }
 
-  /* ===== add ===== */
+  /* ===== Add Methods ===== */
 
-  addExperience(){ this.experience.push(this.fb.group({role:[''],company:[''],years:['']})); }
-  addEducation(){ this.education.push(this.fb.group({degree:[''],school:[''],year:['']})); }
-  addCertification(){ this.certifications.push(this.fb.group({name:[''],org:[''],year:['']})); }
-  addProject(){ this.projects.push(this.fb.group({name:[''],tech:[''],desc:['']})); }
-  addSkill(){ this.skills.push(this.fb.group({name:[''],level:[3]})); }
-  addHobby(){ this.hobbies.push(this.fb.control('')); }
+  addExperience() {
+    this.experience.push(
+      this.fb.group({
+        role: [''],
+        company: [''],
+        fromDate: [''],
+        toDate: ['']
+      })
+    );
+  }
 
-  remove(arr: FormArray, i:number){
+  addEducation() {
+    this.education.push(
+      this.fb.group({
+        degree: [''],
+        school: [''],
+        fromDate: [''],
+        toDate: ['']
+      })
+    );
+  }
+
+  addProject() {
+    this.projects.push(
+      this.fb.group({
+        name: [''],
+        tech: [''],
+        desc: [''],
+        fromDate: [''],
+        toDate: ['']
+      })
+    );
+  }
+
+  addCertification() {
+    this.certifications.push(
+      this.fb.group({
+        name: [''],
+        org: [''],
+        year: ['']
+      })
+    );
+  }
+
+  addSkill() {
+    this.skills.push(
+      this.fb.group({
+        name: [''],
+        level: [3]
+      })
+    );
+  }
+
+  addHobby() {
+    this.hobbies.push(this.fb.control(''));
+  }
+
+  /* ===== Remove ===== */
+
+  remove(arr: FormArray, i: number) {
     arr.removeAt(i);
   }
 }
